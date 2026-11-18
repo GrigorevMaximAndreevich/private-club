@@ -1,4 +1,4 @@
-package com.github.grigorevmaximandreevich.privateclub.model;
+package com.github.grigorevmaximandreevich.privateclub.model.entity;
 
 import jakarta.persistence.*;
 
