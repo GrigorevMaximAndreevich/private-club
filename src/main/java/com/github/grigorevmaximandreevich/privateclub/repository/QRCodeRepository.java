@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface QRCodeRepository extends JpaRepository<Long, QRCode> {
+public interface QRCodeRepository extends JpaRepository<QRCode, Long> {
 
     Optional<QRCode> findByCode(UUID code);
 
