@@ -21,14 +21,14 @@ public class GuestService {
 
     @Transactional(readOnly = true)
     public List<GuestDto> findAll() {
-        return guestRepository.findAll().stream()
+        return guestRepository.findAllWithQrCodes().stream()
                 .map(GuestMapper::toDto)
                 .toList();
     }
 
     @Transactional(readOnly = true)
     public GuestDto findById(Long id) {
-        Guest guest = guestRepository.findById(id)
+        Guest guest = guestRepository.findByIdWithQrCodes(id)
                 .orElseThrow(() -> new EntityNotFoundException("Гость с ID " + id + " не найден"));
         return GuestMapper.toDto(guest);
     }
@@ -42,7 +42,7 @@ public class GuestService {
 
     @Transactional
     public GuestDto update(Long id, GuestDto guestDto) {
-        Guest guest = guestRepository.findById(id)
+        Guest guest = guestRepository.findByIdWithQrCodes(id)
                 .orElseThrow(() -> new EntityNotFoundException("Гость с ID " + id + " не найден"));
         guest.setFirstName(guestDto.firstName());
         guest.setLastName(guestDto.lastName());

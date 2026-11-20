@@ -2,7 +2,7 @@ package com.github.grigorevmaximandreevich.privateclub.service;
 
 import com.github.grigorevmaximandreevich.privateclub.exception.AccessDeniedException;
 import com.github.grigorevmaximandreevich.privateclub.exception.EntityNotFoundException;
-import com.github.grigorevmaximandreevich.privateclub.mapper.GuestBriefDto;
+import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestBriefDto;
 import com.github.grigorevmaximandreevich.privateclub.mapper.GuestMapper;
 import com.github.grigorevmaximandreevich.privateclub.mapper.QRCodeMapper;
 import com.github.grigorevmaximandreevich.privateclub.model.dto.QRCodeDto;
@@ -30,7 +30,7 @@ public class QRCodeService {
 
     @Transactional(readOnly = true)
     public List<QRCodeDto> findAll() {
-        return qrCodeRepository.findAll().stream()
+        return qrCodeRepository.findAllWithGuest().stream()
                 .map(QRCodeMapper::toDto)
                 .toList();
     }

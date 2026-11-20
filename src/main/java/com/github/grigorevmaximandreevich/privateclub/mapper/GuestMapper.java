@@ -1,5 +1,6 @@
 package com.github.grigorevmaximandreevich.privateclub.mapper;
 
+import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestBriefDto;
 import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestDto;
 import com.github.grigorevmaximandreevich.privateclub.model.dto.QRCodeDto;
 import com.github.grigorevmaximandreevich.privateclub.model.entity.Guest;

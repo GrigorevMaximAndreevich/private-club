@@ -1,4 +1,4 @@
-package com.github.grigorevmaximandreevich.privateclub.mapper;
+package com.github.grigorevmaximandreevich.privateclub.model.dto;
 
 public record GuestBriefDto(
         Long id,

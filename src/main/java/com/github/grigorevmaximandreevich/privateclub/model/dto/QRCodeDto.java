@@ -1,8 +1,5 @@
 package com.github.grigorevmaximandreevich.privateclub.model.dto;
 
-import com.github.grigorevmaximandreevich.privateclub.mapper.GuestBriefDto;
-import com.github.grigorevmaximandreevich.privateclub.model.entity.Guest;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
