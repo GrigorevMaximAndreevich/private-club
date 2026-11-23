@@ -13,7 +13,6 @@ import com.github.grigorevmaximandreevich.privateclub.repository.QRCodeRepositor
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,7 +48,6 @@ public class QRCodeService {
 
         QRCode qrCode = new QRCode();
         qrCode.setCode(UUID.randomUUID());
-        qrCode.setCreatedTime(LocalDateTime.now());
         qrCode.setActive(true);
         guest.addQrCode(qrCode);
 
@@ -57,6 +55,7 @@ public class QRCodeService {
         return QRCodeMapper.toDto(savedQrCode);
     }
 
+    @Transactional
     public GuestBriefDto enterByQrCode(UUID code) {
         QRCode qrCode = qrCodeRepository.findByCodeAndIsActiveTrueWithGuest(code)
                 .orElseThrow(() -> new AccessDeniedException("Вход запрещен: QR-код недействителен или уже использован"));
@@ -67,7 +66,6 @@ public class QRCodeService {
 
         QRCode newQrCode = new QRCode();
         newQrCode.setCode(UUID.randomUUID());
-        newQrCode.setCreatedTime(LocalDateTime.now());
         newQrCode.setActive(true);
         guest.addQrCode(newQrCode);
         qrCodeRepository.save(newQrCode);

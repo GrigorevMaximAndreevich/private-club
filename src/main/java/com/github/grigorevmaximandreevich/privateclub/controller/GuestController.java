@@ -1,7 +1,10 @@
 package com.github.grigorevmaximandreevich.privateclub.controller;
 
-import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestDto;
+import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestCreateRequest;
+import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestResponse;
+import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestUpdateRequest;
 import com.github.grigorevmaximandreevich.privateclub.service.GuestService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,24 +20,24 @@ public class GuestController {
     }
 
     @GetMapping
-    public List<GuestDto> getAllGuests() {
+    public List<GuestResponse> getAllGuests() {
         return guestService.findAll();
     }
 
     @GetMapping("/{id}")
-    public GuestDto getGuestById(@PathVariable Long id) {
+    public GuestResponse getGuestById(@PathVariable Long id) {
         return guestService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GuestDto createGuest(@RequestBody GuestDto guestDto) {
-        return guestService.create(guestDto);
+    public GuestResponse createGuest(@Valid @RequestBody GuestCreateRequest request) {
+        return guestService.create(request);
     }
 
     @PutMapping("/{id}")
-    public GuestDto updateGuest(@PathVariable Long id, @RequestBody GuestDto guestDto) {
-        return guestService.update(id, guestDto);
+    public GuestResponse updateGuest(@PathVariable Long id, @RequestBody GuestUpdateRequest request) {
+        return guestService.update(id, request);
     }
 
     @DeleteMapping("/{id}")

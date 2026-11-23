@@ -2,7 +2,9 @@ package com.github.grigorevmaximandreevich.privateclub.service;
 
 import com.github.grigorevmaximandreevich.privateclub.exception.EntityNotFoundException;
 import com.github.grigorevmaximandreevich.privateclub.mapper.GuestMapper;
-import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestDto;
+import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestCreateRequest;
+import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestResponse;
+import com.github.grigorevmaximandreevich.privateclub.model.dto.GuestUpdateRequest;
 import com.github.grigorevmaximandreevich.privateclub.model.entity.Guest;
 import com.github.grigorevmaximandreevich.privateclub.repository.GuestRepository;
 import org.springframework.stereotype.Service;
@@ -20,35 +22,33 @@ public class GuestService {
     }
 
     @Transactional(readOnly = true)
-    public List<GuestDto> findAll() {
+    public List<GuestResponse> findAll() {
         return guestRepository.findAllWithQrCodes().stream()
-                .map(GuestMapper::toDto)
+                .map(GuestMapper::toResponse)
                 .toList();
     }
 
     @Transactional(readOnly = true)
-    public GuestDto findById(Long id) {
+    public GuestResponse findById(Long id) {
         Guest guest = guestRepository.findByIdWithQrCodes(id)
                 .orElseThrow(() -> new EntityNotFoundException("Гость с ID " + id + " не найден"));
-        return GuestMapper.toDto(guest);
+        return GuestMapper.toResponse(guest);
     }
 
     @Transactional
-    public GuestDto create(GuestDto guestDto) {
-        Guest guest = GuestMapper.toEntity(guestDto);
+    public GuestResponse create(GuestCreateRequest request) {
+        Guest guest = GuestMapper.toEntity(request);
         Guest savedGuest = guestRepository.save(guest);
         return GuestMapper.toDto(savedGuest);
     }
 
     @Transactional
-    public GuestDto update(Long id, GuestDto guestDto) {
+    public GuestResponse update(Long id, GuestUpdateRequest request) {
         Guest guest = guestRepository.findByIdWithQrCodes(id)
                 .orElseThrow(() -> new EntityNotFoundException("Гость с ID " + id + " не найден"));
-        guest.setFirstName(guestDto.firstName());
-        guest.setLastName(guestDto.lastName());
-        guest.setPatronymic(guestDto.patronymic());
+        GuestMapper.updateEntity(guest, request);
         Guest updatedGuest = guestRepository.save(guest);
-        return GuestMapper.toDto(updatedGuest);
+        return GuestMapper.toResponse(updatedGuest);
     }
 
     @Transactional

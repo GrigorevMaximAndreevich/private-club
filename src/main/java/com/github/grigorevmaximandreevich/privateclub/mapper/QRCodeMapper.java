@@ -33,22 +33,4 @@ public class QRCodeMapper {
                 .toList();
     }
 
-    public static QRCode toEntity(QRCodeDto qrCodeDto) {
-        if (qrCodeDto == null) {
-            return null;
-        }
-        QRCode qrCode = new QRCode();
-        qrCode.setCode(qrCodeDto.code());
-        qrCode.setCreatedTime(qrCodeDto.createdTime());
-        qrCode.setActive(qrCodeDto.isActive());
-        if (qrCodeDto.guest() != null) {
-            Guest guest = new Guest();
-            guest.setId(qrCodeDto.guest().id());
-            guest.setFirstName(qrCodeDto.guest().firstName());
-            guest.setLastName(qrCodeDto.guest().lastName());
-            guest.setPatronymic(qrCodeDto.guest().patronymic());
-            qrCode.setGuest(guest);
-        }
-        return qrCode;
-    }
 }

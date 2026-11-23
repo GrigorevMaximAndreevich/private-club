@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record QRCodeDto(
-        long id,
+        Long id,
         UUID code,
         LocalDateTime createdTime,
         boolean isActive,

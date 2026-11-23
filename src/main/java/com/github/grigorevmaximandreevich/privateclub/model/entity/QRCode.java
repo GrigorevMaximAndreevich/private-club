@@ -11,19 +11,19 @@ public class QRCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(name = "code", nullable = false, unique = true)
+    @Column(name = "code", unique = true)
     private UUID code;
 
-    @Column(name = "created_time", nullable = false)
+    @Column(name = "created_time")
     private LocalDateTime createdTime = LocalDateTime.now();
 
     @Column(name = "is_active")
     private boolean isActive = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "guest_id", nullable = false)
+    @JoinColumn(name = "guest_id")
     private Guest guest;
 
     public QRCode() {
