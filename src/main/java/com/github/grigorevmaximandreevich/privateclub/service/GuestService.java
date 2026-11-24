@@ -39,7 +39,7 @@ public class GuestService {
     public GuestResponse create(GuestCreateRequest request) {
         Guest guest = GuestMapper.toEntity(request);
         Guest savedGuest = guestRepository.save(guest);
-        return GuestMapper.toDto(savedGuest);
+        return GuestMapper.toResponse(savedGuest);
     }
 
     @Transactional

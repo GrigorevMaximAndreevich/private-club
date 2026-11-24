@@ -38,7 +38,7 @@ public class Guest {
         qrCode.setGuest(null);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

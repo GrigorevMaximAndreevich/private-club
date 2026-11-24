@@ -29,7 +29,7 @@ public class QRCode {
     public QRCode() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

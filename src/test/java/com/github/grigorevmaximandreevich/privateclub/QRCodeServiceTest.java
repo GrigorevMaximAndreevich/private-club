@@ -138,4 +138,20 @@ public class QRCodeServiceTest {
         verify(qrCodeRepository, never()).save(any());
     }
 
+    @Test
+    void enterByQrCode_shouldThrowOnSecondAttemptWithSameCode() {
+        when(qrCodeRepository.findByCodeAndIsActiveTrueWithGuest(codeValue))
+                .thenReturn(Optional.of(activeCode))
+                .thenReturn(Optional.empty());
+
+        var firstResult = qrCodeService.enterByQrCode(codeValue);
+        assertThat(firstResult.id()).isEqualTo(1L);
+
+        assertThat(activeCode.isActive()).isFalse();
+
+        assertThatThrownBy(() -> qrCodeService.enterByQrCode(codeValue))
+                .isInstanceOf(AccessDeniedException.class)
+                .hasMessageContaining("QR-код недействителен или уже использован");
+    }
+
 }

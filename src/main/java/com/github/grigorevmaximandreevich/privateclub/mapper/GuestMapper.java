@@ -42,17 +42,6 @@ public class GuestMapper {
         );
     }
 
-    public static GuestResponse toDto(Guest guest) {
-        List<QRCodeDto> qrCodeDtos = QRCodeMapper.toDtoList(guest.getQrCodes());
-        return new GuestResponse(
-                guest.getId(),
-                guest.getFirstName(),
-                guest.getLastName(),
-                guest.getPatronymic(),
-                qrCodeDtos
-        );
-    }
-
     public static GuestBriefDto toBriefDto(Guest guest) {
         if (guest == null) {
             return null;

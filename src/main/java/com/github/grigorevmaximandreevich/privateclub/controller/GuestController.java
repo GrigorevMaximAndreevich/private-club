@@ -36,7 +36,7 @@ public class GuestController {
     }
 
     @PutMapping("/{id}")
-    public GuestResponse updateGuest(@PathVariable Long id, @RequestBody GuestUpdateRequest request) {
+    public GuestResponse updateGuest(@PathVariable Long id, @Valid @RequestBody GuestUpdateRequest request) {
         return guestService.update(id, request);
     }
 
